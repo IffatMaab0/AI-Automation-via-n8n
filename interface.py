@@ -30,8 +30,12 @@ if user_msg:
         
             json ={"message": user_msg})
         print(response.text)
+        print("Status code:", response.status_code)
+        print("Raw response:", response.text)
 
         data = response.json()
+        ai_response = data.get("output", data.get("text", str(data)))
+
         if isinstance(data, list):
             ai_response = data[0].get("json", {}).get("output", "No output found")
         else:
